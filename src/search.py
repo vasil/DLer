@@ -9,22 +9,22 @@ API = 'http://books.google.com/books/feeds/volumes'
 
 NS = {'atom': 'http://www.w3.org/2005/Atom',
       'openSearch': 'http://a9.com/-/spec/opensearchrss/1.0/',
-      'gbs' : 'http://schemas.google.com/books/2008',
-      'dc' : 'http://purl.org/dc/terms',
-      'gd' : 'http://schemas.google.com/g/2005'}
+      'gbs': 'http://schemas.google.com/books/2008',
+      'dc': 'http://purl.org/dc/terms',
+      'gd': 'http://schemas.google.com/g/2005'}
 
-viewability = {'FULL': {'description' : 'Full view of this work',
-                        'value': 'http://schemas.google.com/books/2008#view_all_pages' },
-               'PARTIAL': {'description' : 'Limited preview of this work',
-                          'value': 'http://schemas.google.com/books/2008#view_partial' },
+viewability = {'FULL': {'description': 'Full view of this work',
+                        'value': 'http://schemas.google.com/books/2008#view_all_pages'},
+               'PARTIAL': {'description': 'Limited preview of this work',
+                           'value': 'http://schemas.google.com/books/2008#view_partial'},
                'NONE': {'description': 'Basic information only',
-                        'value' : 'http://schemas.google.com/books/2008#view_no_pages' },
+                        'value': 'http://schemas.google.com/books/2008#view_no_pages'},
                'UNKNOWN': {'description': '',
-                           'value' : 'http://schemas.google.com/books/2008#view_unknown'}}
-
+                           'value': 'http://schemas.google.com/books/2008#view_unknown'}}
 
 
 class Request(object):
+
     def __init__(self, query, remote_addr=None):
         r = urllib2.Request('%s?q=%s' % (API, query))
         if remote_addr:
@@ -36,12 +36,15 @@ class Request(object):
 
 
 class Response(object):
+
     def __init__(self, resp):
         self.tree = etree.fromstring(resp)
         self.entries = [Entry(e) for e in self.tree.xpath("//atom:entry",
-                                                           namespaces=NS)]
+                                                          namespaces=NS)]
+
 
 class Entry(object):
+
     def __init__(self, xml):
         self.xml = xml
 
@@ -63,7 +66,7 @@ class Entry(object):
     @property
     def viewability(self):
         try:
-            desc = self.xml.xpath('gbs:viewability', 
+            desc = self.xml.xpath('gbs:viewability',
                                   namespaces=NS)[0].get('value')
         except IndexError:
             return None
@@ -74,7 +77,7 @@ class Entry(object):
     @property
     def publisher(self):
         try:
-            return self.xml.xpath('dc:publisher/text()', 
+            return self.xml.xpath('dc:publisher/text()',
                                   namespaces=NS)[0]
         except IndexError:
             return None
@@ -82,7 +85,7 @@ class Entry(object):
     @property
     def pages(self):
         try:
-            return self.xml.xpath('dc:format/text()', 
+            return self.xml.xpath('dc:format/text()',
                                   namespaces=NS)[0]
         except IndexError:
             return None
@@ -90,7 +93,7 @@ class Entry(object):
     @property
     def preview(self):
         try:
-            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/preview']", 
+            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/preview']",
                                   namespaces=NS)[0].get('href')
         except IndexError:
             return None
@@ -98,22 +101,21 @@ class Entry(object):
     @property
     def info(self):
         try:
-            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/info']", 
+            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/info']",
                                   namespaces=NS)[0].get('href')
         except IndexError:
             return None
-        
+
     @property
     def category(self):
         try:
-            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/subject']", 
+            return self.xml.xpath("atom:link[@rel='http://schemas.google.com/books/2008/subject']",
                                   namespaces=NS)[0].get('href')
         except IndexError:
-            return None                                  
-        
+            return None
+
 if __name__ == '__main__':
     r = Request('Odyssey')
     resp = r.get()
     e = resp.entries[0]
     print e.category
-        

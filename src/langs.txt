@@ -1,0 +1,44 @@
+af,Afrikaans
+bg,Bulgarian
+br,Breton
+ca,Catalan
+ceb,Cebuano
+cs,Czech
+cy,Welsh
+da,Danish
+de,German
+el,Greek
+en,English
+enm,"English,Middle (1100-1500)"
+eo,Esperanto
+es,Spanish
+fi,Finnish
+fr,French
+fur,Friulian
+fy,Western Frisian
+ga,Irish
+gla,Scottish Gaelic
+gl,Galician
+he,Hebrew
+hu,Hungarian
+ia,"Interlingua (International Auxiliary Language Association)"
+ilo,Iloko
+is,Icelandic
+it,Italian
+iu,Inuktitut
+ja,Japanese
+la,Latin
+nah,Nahuatl languages
+nap,Neapolitan
+nl,Dutch
+no,Norwegian
+oc,"Occitan (post 1500)"
+pl,Polish
+pt,Portuguese
+ro,Romanian
+ru,Russian
+sl,Slovenian
+sr,Serbian
+sv,Swedish
+tl,Tagalog
+zh,Chinese

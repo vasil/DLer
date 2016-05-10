@@ -91,4 +91,4 @@ ENV/
 books/
 .epub
 
-log/
+log/.directory

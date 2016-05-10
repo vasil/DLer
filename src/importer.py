@@ -16,11 +16,11 @@ from sqlalchemy.exc import IntegrityError, DataError
 N_TYPE = 'N'
 ECHO = False
 
-USER = 'vasil'
-PASS = 'vasil_pass'
-HOST = '10.0.2.110'
-PORT = '5432'
-DB = 'andappstore'
+USER = 'USERNAME'
+PASS = 'PASSWORD'
+HOST = 'HOST'
+PORT = 'PORT'
+DB = 'DATABASE'
 
 URL = 'postgresql://%s:%s@%s:%s/%s' % (USER, PASS, HOST, PORT, DB)
 
